@@ -1,17 +1,18 @@
-﻿@model DataVerse.Models.CustomerViewModel
+﻿@model DataVerse.Customer
 
 
-<div class="modal fade" id="addCustomerModal" aria-labelledby="addCustomerLabel" aria-hidden="true">
+<div class="modal fade" id="editCustomerModal-@Model.id" aria-labelledby="editCustomerLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="@Url.Action("Create","Customers")" id="customerForm" method="post">
+            <form action="@Url.Action("Edit","Customers")" id="customerForm" method="post">
                 <div class="modal-header">
-                    <h2 class="modal-title">Insert new Customer</h2>
+                    <h2 class="modal-title">Edit Customer</h2>
                 </div>
                 <span class="alert-danger">
                     @Html.ValidationSummary()
                 </span>
                 <div class="modal-body">
+                    @Html.HiddenFor(m=>m.id)
                     <div class="form-group">
                         @Html.LabelFor(m => m.FirstName)
                         @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
@@ -29,18 +30,19 @@
                         @Html.TextBoxFor(m => m.email, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.HomePhone)
-                        @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control" })
+                        @Html.LabelFor(m => m.Phone.HomePhone)
+                        @Html.TextBoxFor(m => m.Phone.HomePhone, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.WorkPhone)
-                        @Html.TextBoxFor(m => m.WorkPhone, new { @class = "form-control" })
+                        @Html.LabelFor(m => m.Phone.WorkPhone)
+                        @Html.TextBoxFor(m => m.Phone.WorkPhone, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.CellPhone)
-                        @Html.TextBoxFor(m => m.CellPhone, new { @class = "form-control" })
+                        @Html.LabelFor(m => m.Phone.CellPhone)
+                        @Html.TextBoxFor(m => m.Phone.CellPhone, new { @class = "form-control" })
                     </div>
-                    
+                  
+                   
 
                 </div>
                 <div class="modal-footer">
@@ -51,3 +53,4 @@
         </div>
     </div>
 </div>
+

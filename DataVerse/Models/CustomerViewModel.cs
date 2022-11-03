@@ -11,14 +11,14 @@ namespace DataVerse.Models
         [Required(ErrorMessage = "First Name is required")]
         [StringLength(50,ErrorMessage ="Name cannot exceeed 50 characters")]
         //[RegularExpression("^[a-zA-Z ]*$")]
-        [RegularExpression(@"^\D*$", ErrorMessage = "No numbers allowed in the sequence.")]
+        [RegularExpression(@"^\D*$", ErrorMessage = "No numbers allowed in First Name.")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name")]
         [Required(ErrorMessage = "Last Name is required")]
         [StringLength(50, ErrorMessage = "Name cannot exceeed 50 characters")]
         //[RegularExpression("^[a-zA-Z ]*$")]
-        [RegularExpression(@"^\D*$", ErrorMessage = "No numbers allowed in the sequence.")]
+        [RegularExpression(@"^\D*$", ErrorMessage = "No numbers allowed in Last Name.")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Address is required")]

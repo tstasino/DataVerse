@@ -71,28 +71,28 @@ namespace DataVerse.Controllers
         [HttpPost]
         public ActionResult Create(CustomerViewModel customerVm)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                Customer c = new Customer();
-                c.FirstName = customerVm.FirstName;
-                c.LastName = customerVm.LastName;
-                c.Address = customerVm.Address;
-                c.email = customerVm.email;
-                db.Customers.Add(c);
-
-                db.SaveChanges();
-
-                Phone ph = new Phone();
-                ph.Customer_id = c.id;
-                ph.HomePhone = customerVm.HomePhone;
-                ph.WorkPhone = customerVm.WorkPhone;
-                ph.CellPhone = customerVm.CellPhone;
-                db.Phones.Add(ph);
-
-                db.SaveChanges();                
+                ViewBag.Message = "Something went wront in validation New Customer";
+                return RedirectToAction("Index", "Customers");
             }
-            
-            
+            Customer c = new Customer();
+            c.FirstName = customerVm.FirstName;
+            c.LastName = customerVm.LastName;
+            c.Address = customerVm.Address;
+            c.email = customerVm.email;
+            db.Customers.Add(c);
+
+            db.SaveChanges();
+
+            Phone ph = new Phone();
+            ph.Customer_id = c.id;
+            ph.HomePhone = customerVm.HomePhone;
+            ph.WorkPhone = customerVm.WorkPhone;
+            ph.CellPhone = customerVm.CellPhone;
+            db.Phones.Add(ph);
+
+            db.SaveChanges();    
             
             return RedirectToAction("Index", "Customers");
         }
@@ -104,29 +104,32 @@ namespace DataVerse.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
+            Customer customer = db.Customers.Where(c => c.id == id).FirstOrDefault();
+
             if (customer == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.id = new SelectList(db.Phones, "Customer_id", "Customer_id", customer.id);
-            return View(customer);
+            Phone phone = db.Phones.Where(c => c.Customer_id == id).FirstOrDefault();
+            
+            customer.Phone.Customer_id = phone.Customer_id;
+            return PartialView("_editCustomerPartialView", customer);
         }
 
         // POST: Customers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FirstName,LastName,Address,email,id")] Customer customer)
+        public ActionResult Edit(Customer customer)
         {
             if (ModelState.IsValid)
             {
+
+                customer.Phone.Customer_id = customer.id;
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id = new SelectList(db.Phones, "Customer_id", "Customer_id", customer.id);
             return View(customer);
         }
 

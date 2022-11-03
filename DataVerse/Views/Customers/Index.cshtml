@@ -4,7 +4,10 @@
 }
 
 <h2>Customers List</h2>
-
+@if (ViewBag.Message != null)
+{
+    <span class="text-danger">@ViewBag.Message</span>
+}
 <p>
     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addCustomerModal">New Customer</a>
 </p>
@@ -67,9 +70,12 @@
                 @Html.DisplayFor(modelItem => item.Phone.CellPhone)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |*@
+               @* @Html.ActionLink("Details", "Details", new { id = item.id }) |*@
                 @*@Html.ActionLink("Delete", "Delete", new { id = item.id })*@
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="@("#editCustomerModal-" + item.id)" data-url="@Url.Action($"Edit/{item.id}")">
+                    Edit</button>
+                @Html.Partial("_editCustomerPartialView", item)
                 <button data-customerId="@item.id" class="btn--show-modal btn btn-danger mr-1">Delete</button>
             </td>
         </tr>
