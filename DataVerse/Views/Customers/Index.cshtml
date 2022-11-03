@@ -1,0 +1,111 @@
+﻿@model IEnumerable<DataVerse.Customer>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Customers List</h2>
+
+<p>
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#customersModal">New Customer</a>
+</p>
+<table class="table table-bordered">
+    <tr class="btn-primary">
+        <th>
+            @Html.DisplayNameFor(model => model.id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Phone.HomePhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone.WorkPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone.CellPhone)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone.HomePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone.WorkPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone.CellPhone)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.id })*@
+                <button data-customerId="@item.id" class="btn--show-modal btn btn-danger mr-1">Delete</button>
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="modal1 hidden">
+
+    <img width="60" class="warning-sign" src="~/Images/Icons/warning.png" alt="">
+    <h5>Are you sure your want to delete this Customer?</h5>
+    <div>
+        <button class="delete-btn">Yes, delete!</button>
+        <button class="btn--close-modal">No, cancel</button>
+    </div>
+</div>
+<div class="modal fade" id="customersModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Insert new Customer</h2>
+            </div>
+            <div class="modal-body">
+                <form id="customerForm">
+                    <label>First Name</label>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                <input type="reset" value="Submit" class="btn btn-success" id="btnSubmit" />
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/modals.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+}
