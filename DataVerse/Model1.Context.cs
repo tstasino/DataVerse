@@ -9,7 +9,6 @@
 
 namespace DataVerse
 {
-    using DataVerse.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
@@ -28,7 +27,6 @@ namespace DataVerse
     
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Phone> Phones { get; set; }
-        public virtual DbSet<CustomerViewModel> CustomerViewModels { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

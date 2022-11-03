@@ -13,15 +13,15 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" />
           <Property Name="Address" Type="varchar(max)" />
           <Property Name="email" Type="varchar" MaxLength="50" />
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Phones">
           <Key>
             <PropertyRef Name="Customer_id" />
           </Key>
           <Property Name="Customer_id" Type="int" Nullable="false" />
-          <Property Name="HomePhone" Type="int" />
-          <Property Name="WorkPhone" Type="int" />
+          <Property Name="HomePhone" Type="bigint" />
+          <Property Name="WorkPhone" Type="bigint" />
           <Property Name="CellPhone" Type="bigint" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -70,7 +70,7 @@
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Phone" Relationship="Self.FK_Phones_Customers" FromRole="Customers" ToRole="Phones" />
         </EntityType>
         <EntityType Name="Phone">
@@ -78,8 +78,8 @@
             <PropertyRef Name="Customer_id" />
           </Key>
           <Property Name="Customer_id" Type="Int32" Nullable="false" />
-          <Property Name="HomePhone" Type="Int32" />
-          <Property Name="WorkPhone" Type="Int32" />
+          <Property Name="HomePhone" Type="Int64" />
+          <Property Name="WorkPhone" Type="Int64" />
           <Property Name="CellPhone" Type="Int64" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Phones_Customers" FromRole="Phones" ToRole="Customers" />
         </EntityType>

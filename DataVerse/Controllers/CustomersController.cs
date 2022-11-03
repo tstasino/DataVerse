@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DataVerse;
+using DataVerse.Models;
 
 namespace DataVerse.Controllers
 {
@@ -37,28 +38,63 @@ namespace DataVerse.Controllers
         }
 
         // GET: Customers/Create
-        public ActionResult Create()
-        {
-            ViewBag.id = new SelectList(db.Phones, "Customer_id", "Customer_id");
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    ViewBag.id = new SelectList(db.Phones, "Customer_id", "Customer_id");
+        //    return View();
+        //}
 
         // POST: Customers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "FirstName,LastName,Address,email,id")] Customer customer)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Customers.Add(customer);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.id = new SelectList(db.Phones, "Customer_id", "Customer_id", customer.id);
+        //    return View(customer);
+        //}
+
+        public ActionResult Create()
+        {
+            CustomerViewModel customerVm = new CustomerViewModel();
+            return PartialView("_CustomerPartialView",customerVm);
+        }
+        
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FirstName,LastName,Address,email,id")] Customer customer)
+        public ActionResult Create(CustomerViewModel customerVm)
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                Customer c = new Customer();
+                c.FirstName = customerVm.FirstName;
+                c.LastName = customerVm.LastName;
+                c.Address = customerVm.Address;
+                c.email = customerVm.email;
+                db.Customers.Add(c);
 
-            ViewBag.id = new SelectList(db.Phones, "Customer_id", "Customer_id", customer.id);
-            return View(customer);
+                db.SaveChanges();
+
+                Phone ph = new Phone();
+                ph.Customer_id = c.id;
+                ph.HomePhone = customerVm.HomePhone;
+                ph.WorkPhone = customerVm.WorkPhone;
+                ph.CellPhone = customerVm.CellPhone;
+                db.Phones.Add(ph);
+
+                db.SaveChanges();                
+            }
+            
+            
+            
+            return RedirectToAction("Index", "Customers");
         }
 
         // GET: Customers/Edit/5

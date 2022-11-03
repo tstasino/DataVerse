@@ -15,8 +15,8 @@ namespace DataVerse
     public partial class Phone
     {
         public int Customer_id { get; set; }
-        public Nullable<int> HomePhone { get; set; }
-        public Nullable<int> WorkPhone { get; set; }
+        public Nullable<long> HomePhone { get; set; }
+        public Nullable<long> WorkPhone { get; set; }
         public Nullable<long> CellPhone { get; set; }
     
         public virtual Customer Customer { get; set; }
