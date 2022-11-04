@@ -124,9 +124,10 @@ namespace DataVerse.Controllers
         {
             if (ModelState.IsValid)
             {
-
+             
                 customer.Phone.Customer_id = customer.id;
                 db.Entry(customer).State = EntityState.Modified;
+                db.Entry(customer.Phone).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
