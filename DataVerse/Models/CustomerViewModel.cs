@@ -46,5 +46,6 @@ namespace DataVerse.Models
         [Display(Name = "Cell Phone")]
         public Nullable<long> CellPhone { get; set; }
 
+
     }
 }

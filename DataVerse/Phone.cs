@@ -6,6 +6,7 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System.ComponentModel.DataAnnotations;
 
 namespace DataVerse
 {
@@ -15,8 +16,19 @@ namespace DataVerse
     public partial class Phone
     {
         public int Customer_id { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Home Phone")]
+        [RegularExpression("[0-9]{10}", ErrorMessage = "Please enter valid Home Phone Number")]
         public Nullable<long> HomePhone { get; set; }
+        
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Work Phone")]
+        [RegularExpression("[0-9]{10}", ErrorMessage = "Please enter valid Work Phone Number")]
         public Nullable<long> WorkPhone { get; set; }
+
+        [RegularExpression("[0-9]{10}", ErrorMessage = "Please enter valid Cell Phone Number")]
+        [Display(Name = "Cell Phone")]
         public Nullable<long> CellPhone { get; set; }
     
         public virtual Customer Customer { get; set; }
